@@ -17,7 +17,7 @@
  * 'gas' 是例外，因為那條線的姓名根本不出這台電腦（拆在 js/store-gas.js），
  * 上雲的只有座號與事件流——但換裝置前一定要先匯出備份，見 docs/gas-deploy.md。
  */
-export const STORE_BACKEND = 'local';
+export const STORE_BACKEND = 'gas';
 
 /**
  * 舊名，保留給 parent.js／bindings.js 用。語意不變：只有 Cloudflare 那條線算「雲端」，
@@ -40,7 +40,7 @@ export const CLOUD_ENABLED = STORE_BACKEND === 'cloud';
 export const GAS_ENDPOINT = {
   // 這兩行由 `npm run setup` 自動填。自己填也可以，格式長這樣：
   //   https://script.google.com/macros/s/AKfycb.../exec
-  admin: 'https://script.google.com/macros/s/AKfycbw1LKlZxvtlCn_K4I8cNBmeHvjeUhZCXR1zNtAig323N_yYTcYZMjE-hs-kwTfPQsxJeA/exec',
+  admin: 'https://script.google.com/macros/s/AKfycbz-vRr_SPWt4atudnDBG2YzhZPUo0mgCOOdooyFaxRxwj2As1Wg3d5oLB-ci9uFgqCQ3Q/exec',
   public: 'https://script.google.com/macros/s/AKfycbwURbvcx4ABLfOSFrVLz--jUBD2IwUF6cqw1i0-PIyojhUoZimUjqKLs0a3MRaxiyTVDg/exec',
 };
 
