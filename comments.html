@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>學期評語草稿 — 班級積分堂</title>
+<meta name="description" content="把一學期累積的行為紀錄整理成評語草稿：每一句話都對得回具體事件，老師改完再用。">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/comments.css">
+</head>
+<body>
+
+<div class="subpage-back"><a href="/">← 回主畫面</a></div>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="logo">✦</span>
+    <span class="brand-name">學期評語草稿</span>
+  </div>
+  <div class="topbar-controls">
+    <select id="classSelect" aria-label="選擇班級"></select>
+  </div>
+</header>
+
+<main>
+  <div class="view-head">
+    <div>
+      <h2>不用從零開始寫評語</h2>
+      <p class="hint">
+        這裡產生的是<strong>草稿</strong>，不是定稿。每一句話都是從你這學期記的事件算出來的——
+        沒有一句是編的，也刻意不寫「熱心」「內向」這種標籤。改完再複製出去。
+      </p>
+      <p class="hint" id="aiHint"></p>
+    </div>
+  </div>
+
+  <section class="panel">
+    <div class="inline-form">
+      <label>起 <input type="date" id="since"></label>
+      <label>迄 <input type="date" id="until"></label>
+      <button id="genBtn" class="btn btn-primary btn-sm" type="button">產生全班草稿</button>
+      <button id="copyAll" class="btn btn-ghost btn-sm" type="button">全部複製</button>
+    </div>
+    <p class="hint" id="summary"></p>
+  </section>
+
+  <div id="cards" class="cards"></div>
+</main>
+
+<div id="toast" class="toast" hidden><span id="toastText"></span></div>
+
+<footer class="foot">
+  <p>
+    待改進只寫「最常出現的那一項與次數」，不寫日期、不引用你當初的備註原文——
+    學期評語會被存檔、被轉傳，明細不該跟著孩子好幾年。你想提哪一件，請自己斟酌措辭；
+    展開「這段話的依據」就看得到全部原始備註。
+  </p>
+</footer>
+
+<script type="module" src="js/comments.js"></script>
+</body>
+</html>
