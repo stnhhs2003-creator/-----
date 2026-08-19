@@ -1,0 +1,124 @@
+/*
+ * 學生端與積分商店的補充樣式。
+ * 設計語言沿用 assets/style.css 的變數與元件，這裡只補它沒有的東西。
+ */
+
+/* ---- 班級榜 ---- */
+
+.stu-rank { font-weight: 700; font-variant-numeric: tabular-nums; width: 48px; }
+tr.stu-me { background: var(--green-soft); }
+tr.stu-me:hover { background: var(--green-soft); }
+tr.stu-me td { font-weight: 700; }
+
+.stu-delta { font-weight: 700; font-variant-numeric: tabular-nums; }
+.stu-delta.up { color: var(--green); }
+.stu-delta.down { color: var(--amber); }
+.stu-delta.flat { color: var(--ink-soft); font-weight: 600; }
+
+.stu-note { margin-top: 10px; }
+
+/* ---- 每週正向長條圖 ---- */
+
+.stu-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 170px;
+}
+
+.stu-col {
+  flex: 1 1 0;
+  min-width: 34px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.stu-val { font-size: 0.75rem; font-weight: 700; color: var(--green); font-variant-numeric: tabular-nums; min-height: 18px; }
+
+.stu-bar {
+  width: 100%;
+  background: var(--green);
+  border-radius: 6px 6px 0 0;
+  min-height: 3px;
+}
+
+/* ---- 學生端商店 ---- */
+
+.stu-rewards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.stu-reward {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stu-reward-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.stu-reward-name { font-weight: 700; font-size: 0.9375rem; }
+.stu-cost { font-weight: 700; color: var(--green); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.stu-reward-meta { font-size: 0.8125rem; color: var(--ink-soft); }
+.stu-reward .btn { width: 100%; }
+.stu-reward .btn:disabled { opacity: .5; cursor: not-allowed; }
+.stu-reward .btn:disabled:hover { background: var(--green); }
+.stu-lack { font-size: 0.75rem; color: var(--amber); text-align: center; }
+
+/* ---- 老師端商店 ---- */
+
+.stu-gap { margin-top: 28px; }
+.stu-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+.stu-short { color: var(--red); font-weight: 700; }
+tr.stu-off { opacity: .55; }
+
+.stu-form { display: grid; gap: 14px; }
+.stu-form h3 { font-size: 0.9375rem; }
+
+.stu-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.stu-form-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
+}
+
+.stu-form-grid input[type="text"],
+.stu-form-grid input[type="number"] {
+  font: inherit;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--ink);
+  min-height: 40px;
+}
+
+.stu-check { flex-direction: row !important; align-items: center; align-self: end; min-height: 40px; }
+
+/* ---- 手機 ---- */
+
+@media (max-width: 560px) {
+  .stu-rewards { grid-template-columns: 1fr; }
+  .stu-chart { height: 140px; gap: 5px; }
+  .stu-col { min-width: 0; }
+  .tabs { top: 57px; }
+  th, td { padding: 8px 6px; font-size: 0.8125rem; }
+  .stu-rank { width: 34px; }
+  .stu-actions .btn { padding: 5px 8px; min-height: 32px; font-size: 0.8125rem; }
+}
