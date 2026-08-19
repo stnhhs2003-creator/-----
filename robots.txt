@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /parent
+Disallow: /student
+
+Sitemap: https://YOUR-SITE.pages.dev/sitemap.xml
