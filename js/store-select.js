@@ -37,7 +37,7 @@ async function pick() {
        */
       return mod.createGasStore({
         endpoint: GAS_ENDPOINT.admin,
-        getToken: () => auth.getIdToken(GOOGLE_CLIENT_ID),
+        getToken: () => (GOOGLE_CLIENT_ID ? auth.getIdToken(GOOGLE_CLIENT_ID) : Promise.resolve('')),
         onAuthFail: () => auth.clearToken(),
       });
     } catch (err) {
