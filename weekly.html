@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>導師手札週報 — 班級積分堂</title>
+<meta name="description" content="老師自用的一頁式週報：這一週的班級數字、正向佔比，以及依告急規則自動產生的需關心名單。">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/weekly.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="logo">✦</span>
+    <span class="brand-name">導師手札週報</span>
+  </div>
+  <div class="topbar-controls">
+    <select id="classSelect" aria-label="選擇班級"></select>
+  </div>
+</header>
+
+<div class="subpage-back"><a href="/">← 回主畫面</a></div>
+
+<main>
+  <div class="view-head">
+    <div>
+      <h2>這一週，班上發生了什麼</h2>
+      <p class="hint">
+        數字全部從你自己記的紀錄算出來，需要關心的名單則直接由告急規則產生——
+        不是憑印象，也不是 AI 挑的。這一頁是寫給你自己看的，含待改進明細，
+        <strong>請不要直接轉發給家長或學生</strong>。
+      </p>
+    </div>
+  </div>
+
+  <!-- 週次切換：老師常常是週末或月底才回頭補看，所以任意一週都要能翻 -->
+  <section class="panel wk-nav" aria-label="選擇週次">
+    <div class="wk-nav-row">
+      <button id="prevWeek" class="btn btn-ghost btn-sm" type="button">← 上一週</button>
+      <span id="weekLabel" class="wk-label">—</span>
+      <button id="nextWeek" class="btn btn-ghost btn-sm" type="button">下一週 →</button>
+    </div>
+    <div class="wk-nav-row">
+      <button id="thisWeek" class="btn btn-ghost btn-sm" type="button">回到本週</button>
+      <label class="wk-jump">跳到某一天所在的那一週
+        <input type="date" id="jumpDate">
+      </label>
+    </div>
+  </section>
+
+  <div class="wk-actions">
+    <button id="copyBtn" class="btn btn-primary btn-sm" type="button">複製全文</button>
+    <button id="printBtn" class="btn btn-ghost btn-sm" type="button">列印／存 PDF</button>
+    <button id="showText" class="btn btn-ghost btn-sm" type="button">看純文字版</button>
+    <button id="polishBtn" class="btn btn-ghost btn-sm" type="button">用 AI 潤稿</button>
+  </div>
+  <p class="hint" id="aiNote"></p>
+
+  <div id="weeklyRoot"></div>
+
+  <!-- 可複製、可改：一律給文字，不自動送出到任何地方 -->
+  <textarea id="plainText" class="wk-plain" rows="18" aria-label="週報純文字版" hidden></textarea>
+</main>
+
+<div id="toast" class="toast" hidden><span id="toastText"></span></div>
+
+<footer class="foot">
+  <p>需要關心的名單來自「告急規則」（連續幾次待改進、同一節課全班幾次），
+     門檻可以在主畫面的設定裡改；改了門檻，這裡的名單就會跟著變。</p>
+</footer>
+
+<script type="module" src="js/weekly.js"></script>
+</body>
+</html>
