@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>學生端 — 班級積分堂</title>
+<meta name="description" content="班級積分堂學生端狀態說明。資料權限完成前不提供學生查分或公開排行。">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/student.css">
+<link rel="stylesheet" href="assets/codes.css">
+</head>
+<body>
+
+<div class="subpage-back"><a href="/">← 回主畫面</a></div>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="logo">✦</span>
+    <span class="brand-name">學生端</span>
+  </div>
+  <div class="topbar-controls">
+    <!--
+      這裡本來還有一個「選自己的名字」下拉：選誰就看得到誰。
+      那個下拉就是個資盤點列的洞，已經拿掉了——身分改由各分頁裡的個人代碼閘門決定。
+      班級下拉留著：班級榜是公開的，本來就要能切班看。
+    -->
+    <select id="classSelect" aria-label="選擇班級"></select>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="tab is-active" data-view="rank" role="tab">班級榜</button>
+  <button class="tab" data-view="me" role="tab">個人成長</button>
+  <button class="tab" data-view="shop" role="tab">積分商店</button>
+</nav>
+
+<main>
+  <!-- 班級榜 -->
+  <section id="view-rank" class="view is-active">
+    <div class="view-head">
+      <div>
+        <h2>班級榜</h2>
+        <p class="hint">只看得到淨分與這一週的進步幅度。被扣分的細節不會出現在這裡。</p>
+      </div>
+    </div>
+    <div id="rankTable" class="logtable"></div>
+    <p class="hint stu-note">進步幅度＝本週淨分 減 上週淨分。上升代表這一週比上一週表現更好，跟名次高低是兩回事。</p>
+  </section>
+
+  <!-- 個人成長 -->
+  <section id="view-me" class="view">
+    <div class="view-head">
+      <div>
+        <h2 id="meTitle">個人成長</h2>
+        <p class="hint">選自己的座號、打自己的代碼才進得來。這一頁只列正向紀錄。</p>
+      </div>
+    </div>
+    <!-- 沒通過代碼的時候，這一頁只有閘門，下面那包內容整個藏起來（不是把資料印出來再遮住）。 -->
+    <div id="meGate"></div>
+    <div id="meContent" hidden>
+      <div class="stats" id="meStats"></div>
+      <div class="panel">
+        <h3>每週正向分數</h3>
+        <div id="meChart" class="stu-chart"></div>
+      </div>
+      <div class="panel">
+        <h3>最近的正向紀錄</h3>
+        <ul id="meRecords" class="timeline"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 積分商店 -->
+  <section id="view-shop" class="view">
+    <div class="view-head">
+      <div>
+        <h2>積分商店</h2>
+        <p class="hint">打了自己的代碼才能申請兌換，送出後等老師核可才會扣點。</p>
+      </div>
+    </div>
+    <div id="shopGate"></div>
+    <div id="shopContent" hidden>
+      <div class="notice" id="shopBalance"></div>
+      <div id="shopPending"></div>
+      <div id="shopList" class="stu-rewards"></div>
+    </div>
+  </section>
+</main>
+
+<div id="toast" class="toast" hidden>
+  <span id="toastText"></span>
+</div>
+
+<footer class="foot">
+  <p>學生資料的存取必須先有真正的伺服器端身分與權限驗證；本機模式不以介面遮蔽冒充安全。</p>
+</footer>
+
+<script type="module" src="js/student.js?v=20260815"></script>
+</body>
+</html>
