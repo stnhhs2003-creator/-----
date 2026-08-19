@@ -1,0 +1,58 @@
+/* 登入頁。沿用 style.css 的變數與 .btn 元件，只補這一頁專屬的版面。 */
+
+.login-main {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 32px 16px;
+}
+
+.login-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px 20px;
+  box-shadow: var(--shadow);
+}
+
+.login-card h2 { font-size: 1.375rem; }
+.login-card > .hint { margin-top: 6px; }
+
+/* 狀態區塊由 JS 抽換，內容高度會變，所以只用間距不用固定高度。 */
+.login-state {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.login-state .btn { justify-content: center; width: 100%; }
+
+.login-who { font-size: 0.9375rem; }
+
+.btn-google { font-size: 1rem; min-height: 46px; }
+
+.login-err {
+  background: var(--red-soft);
+  color: var(--red);
+  border: 1px solid var(--red);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 0.875rem;
+}
+
+.login-warn {
+  background: var(--amber-soft);
+  border: 1px solid var(--amber);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.login-warn-title { font-weight: 700; color: var(--amber); margin-bottom: 4px; }
+
+.login-note {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
+}
