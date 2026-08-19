@@ -1,0 +1,145 @@
+/* 親師溝通草稿。沿用 style.css 的色票、.panel、.btn、.inline-form，只補這一頁多出來的。 */
+
+/* ---- 事件挑選清單 ---- */
+
+.ev-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 46vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ev {
+  display: grid;
+  grid-template-columns: auto 3.2em 1fr auto;
+  grid-template-areas:
+    "chk when label period"
+    "chk note note note";
+  align-items: center;
+  gap: 2px 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  cursor: pointer;
+}
+
+/* 正向與待改進在挑選階段就要看得出來——挑錯類別的後果是語氣整份走鐘 */
+.ev-positive { border-left: 4px solid var(--green); }
+.ev-improve { border-left: 4px solid var(--amber); }
+.ev-redeem { border-left: 4px solid var(--line); }
+
+.ev input { grid-area: chk; width: 20px; height: 20px; accent-color: var(--green); }
+.ev-when { grid-area: when; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.ev-label { grid-area: label; font-weight: 600; }
+.ev-period { grid-area: period; color: var(--ink-soft); font-size: .85rem; white-space: nowrap; }
+.ev-note {
+  grid-area: note;
+  color: var(--ink-soft);
+  font-size: .88rem;
+  overflow-wrap: anywhere;
+}
+
+/*
+ * 選取態用 inset 陰影而不是改 border-color：
+ * border-color 會把左側那條「正向／待改進」的色條一起蓋掉，
+ * 於是老師一勾選就分不出自己挑的是哪一類——而挑錯類別會讓整份草稿的語氣走鐘。
+ */
+.ev:has(input:checked) {
+  background: var(--green-soft);
+  box-shadow: inset 0 0 0 1px var(--green);
+}
+
+/* ---- 請家長協助 ---- */
+
+.asks { display: flex; flex-direction: column; gap: 8px; margin: 10px 0 14px; }
+
+.asks label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: .9rem;
+  color: var(--ink-soft);
+}
+
+.asks input {
+  font: inherit;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  min-width: 0;
+}
+
+/* ---- 草稿 ---- */
+
+.draft-pane { margin-top: 16px; }
+
+.pane-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+.draft-pane textarea {
+  width: 100%;
+  font: inherit;
+  line-height: 1.8;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  resize: vertical;
+  /* 老師必須能改：這裡是可編輯的 textarea，不是唯讀預覽 */
+}
+
+#warnBox .notice {
+  background: var(--amber-soft);
+  color: #7a4d10;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+}
+
+#warnBox ul { margin: 6px 0 0; padding-left: 1.2em; }
+#warnBox li { margin: 4px 0; }
+
+.send-warn {
+  margin-top: 14px;
+  padding: 10px 12px;
+  border-left: 3px solid var(--red);
+  background: var(--red-soft);
+  color: #7d2f2f;
+  border-radius: 0 8px 8px 0;
+}
+
+/* ---- 窄螢幕（老師多半在手機上處理這些事）---- */
+
+@media (max-width: 430px) {
+  /* 姓名那一行放不下就換行排：行為名稱獨佔一行，日期與節次併一行 */
+  .ev {
+    grid-template-columns: auto auto 1fr;
+    grid-template-areas:
+      "chk label label"
+      "chk when  period"
+      "chk note  note";
+    gap: 2px 8px;
+  }
+  .ev-period { text-align: left; }
+  .pane-head { align-items: flex-start; }
+  /* 標籤與欄位在窄螢幕上疊起來，免得「你的署名」的輸入框被擠到剩半行 */
+  .inline-form label {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    width: 100%;
+  }
+  .inline-form label select,
+  .inline-form label input { width: 100%; }
+}
