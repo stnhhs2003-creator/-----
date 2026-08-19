@@ -1,0 +1,10 @@
+.DS_Store
+node_modules/
+.wrangler/
+
+# clasp。.clasp.json 裡是 scriptId（拿到就能把程式碼推進那個專案），
+# .clasprc.json 直接是 OAuth token。兩個都不可以進 git。
+gas/.clasp*.json
+!gas/.clasp.json.example
+gas/build/
+.clasprc.json
