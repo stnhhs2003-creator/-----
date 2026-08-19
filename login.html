@@ -34,7 +34,7 @@
 </main>
 
 <footer class="foot">
-  <p><a href="/">← 回主畫面</a></p>
+  <p><a href="index.html">← 回主畫面</a></p>
 </footer>
 
 <script type="module">
@@ -63,7 +63,7 @@ function showNotConfigured(missing) {
       現在資料仍存在這台裝置的瀏覽器裡，可以照常使用。</p>
       ${detail}
     </div>
-    <a class="btn btn-ghost" href="/">直接進主畫面</a>
+    <a class="btn btn-ghost" href="index.html">直接進主畫面</a>
   `);
 }
 
@@ -82,7 +82,7 @@ async function main() {
     render(`
       ${banner}
       <p class="login-who">已登入：<strong>${teacher.email || teacher.teacherId}</strong></p>
-      <a class="btn btn-primary" href="/">進入班級積分堂</a>
+      <a class="btn btn-primary" href="index.html">進入班級積分堂</a>
       <button id="logoutBtn" class="btn btn-ghost">登出</button>
     `);
     document.getElementById('logoutBtn').addEventListener('click', logout);
