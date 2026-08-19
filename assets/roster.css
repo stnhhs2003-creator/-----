@@ -1,0 +1,230 @@
+/* 班級名冊頁專用樣式，色票與圓角沿用 assets/style.css 的變數 */
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.panel-head h3 { font-size: 0.9375rem; margin: 0; }
+.panel-head .hint { margin: 0; }
+
+/* .inline-form 的本體已移進 style.css，這裡只留檔尾 media query 的窄螢幕調整 */
+
+/* 班級表格 */
+.cls-name { font-size: 0.9375rem; font-weight: 600; color: var(--ink); text-decoration: none; }
+.cls-name:hover { color: var(--green); text-decoration: underline; }
+tr.is-current .cls-name { color: var(--green); }
+tr.is-current td { background: var(--green-soft); }
+
+.cols-input {
+  font: inherit;
+  width: 72px;
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.col-act { white-space: nowrap; }
+.col-act .btn + .btn { margin-left: 6px; }
+.pos { color: var(--ink-soft); font-size: 0.8125rem; white-space: nowrap; }
+
+/* 批次匯入 */
+.import-box {
+  font: inherit;
+  font-size: 0.875rem;
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  resize: vertical;
+  min-height: 140px;
+  line-height: 1.7;
+}
+
+.import-box:focus { outline: 2px solid var(--green); outline-offset: 1px; }
+
+.preview {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  padding: 12px;
+}
+
+.preview-head { font-size: 0.875rem; margin-bottom: 8px; }
+.preview .warn {
+  font-size: 0.8125rem;
+  color: var(--amber);
+  background: var(--amber-soft);
+  border-radius: 8px;
+  padding: 6px 10px;
+  margin-bottom: 6px;
+}
+.preview-table { max-height: 260px; overflow-y: auto; }
+
+/* 座位預覽 */
+.seat-preview { gap: 8px; }
+
+.seat-mini {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 8px 4px;
+  min-height: 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  box-shadow: var(--shadow);
+}
+
+.seat-mini .no { font-size: 0.75rem; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.seat-mini .nm { font-size: 0.8125rem; font-weight: 600; text-align: center; line-height: 1.25; }
+
+@media (max-width: 480px) {
+  .inline-form { gap: 8px; }
+  .inline-form label { flex: 1 1 100%; }
+  .inline-form input[type="text"],
+  .inline-form input[type="number"],
+  .inline-form select { flex: 1; width: auto; }
+  .inline-form .btn { flex: 1 1 100%; }
+  .col-act .btn { padding: 6px 8px; }
+  .seat-mini .nm { font-size: 0.75rem; }
+  .seat-mini { padding: 6px 2px; min-height: 50px; }
+  .pos { font-size: 0.75rem; }
+}
+
+/* ---- 移除學生：兩個選項要一眼看出後果不同 ---- */
+
+.del-choices {
+  display: grid;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.del-choices .btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 12px 14px;
+  line-height: 1.5;
+}
+
+.opt-sub {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.85rem;
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+/* 永久刪除是不可逆動作，顏色要跟其他按鈕明顯不同。 */
+.btn-danger {
+  background: #8a3b3b;
+  color: #fff;
+  border-color: #8a3b3b;
+}
+
+.btn-danger:hover { background: #763232; }
+
+/* ---- 不參與記錄（A5）----
+ *
+ * 這是家長行使個資權利的結果，不是處分。所以一律灰階：
+ * 不用紅色、不用警告色、不加驚嘆號。紅色留給「永久刪除」那種不可逆動作，
+ * 兩者長得像的話，班上同學瞄到座位表就會自行腦補成「他被停權了」。
+ */
+
+.chip-optout {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 7px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--ink-soft);
+  font-size: 0.75rem;
+  font-weight: 500;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+tr.is-optout td { background: var(--surface-2); }
+tr.is-optout .stu-name { color: var(--ink-soft); }
+
+/* 座位預覽的佔位格：位子在、姓名不在。虛線邊框表示「這一格不記錄」。 */
+.seat-mini.is-optout {
+  background: var(--surface-2);
+  border-style: dashed;
+  box-shadow: none;
+}
+.seat-mini.is-optout .nm { color: var(--ink-soft); font-weight: 400; }
+
+.optout-note {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  color: var(--ink-soft);
+  font-size: 0.8125rem;
+  line-height: 1.7;
+}
+.optout-note strong { color: var(--ink); }
+
+.optout-choices { display: grid; gap: 10px; margin-top: 4px; }
+.optout-choices .btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 12px 14px;
+  line-height: 1.5;
+}
+
+@media (max-width: 480px) {
+  .chip-optout { display: block; width: fit-content; margin: 3px 0 0; }
+
+  /*
+   * 名冊每一列多了「不參與／恢復參與」這顆按鈕之後，操作欄在 390px 手機上
+   * 會把整張表撐到要左右拉才按得到。處理方式：
+   *   1. 藏掉「位置」欄——正下方的座位預覽已經把同一件事畫出來了，重複。
+   *   2. 操作欄改成可換行，三顆按鈕自己排成兩列。
+   * 換來的是整張表不再需要橫向捲動。
+   */
+  .pos-h, #studentRows .pos { display: none; }
+  #studentRows .col-act {
+    white-space: normal;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  #studentRows .col-act .btn + .btn { margin-left: 0; }
+}
+
+/* ---- 保存期限 ---- */
+
+.expired ul {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+}
+
+.expired li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+}
+
+.expired li > span:first-child { font-weight: 600; }
+.expired li .btn { margin-left: auto; }
