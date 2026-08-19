@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>親師溝通草稿 — 班級積分堂</title>
+<meta name="description" content="挑幾筆具體事件，產生聯絡簿短留言與電話溝通要點。只講事實與日期，不對孩子下定論。草稿一律要老師自己改過再送。">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/contact.css">
+</head>
+<body>
+
+<div class="subpage-back"><a href="/">← 回主畫面</a></div>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="logo">✦</span>
+    <span class="brand-name">親師溝通草稿</span>
+  </div>
+  <div class="topbar-controls">
+    <select id="classSelect" aria-label="選擇班級"></select>
+  </div>
+</header>
+
+<main>
+  <div class="view-head">
+    <h2>先挑事件，再生草稿</h2>
+    <p class="hint">
+      這一頁不會替你決定「這孩子怎麼了」。它只做兩件事：把你挑的幾筆紀錄整理成
+      <strong>看得到日期與次數的事實</strong>，並且把「他就是愛講話」這種下定論的說法擋在外面。
+      產出的兩份草稿都可以直接改，<strong>不會自動送給任何人</strong>。
+    </p>
+  </div>
+
+  <section class="panel">
+    <div class="panel-head"><h3>1・要跟誰談</h3></div>
+    <div class="inline-form">
+      <label>學生 <select id="studentSelect"></select></label>
+      <label>看最近
+        <select id="daySelect">
+          <option value="7">7 天</option>
+          <option value="14" selected>14 天</option>
+          <option value="30">30 天</option>
+          <option value="90">90 天</option>
+        </select>
+      </label>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h3>2・挑出這次要談的事件</h3>
+      <span class="hint">挑 2～3 筆就好</span>
+    </div>
+    <p class="hint">
+      一次談太多件，家長收到的不是幾件事，是一份清算。沒挑事件就不會生草稿——
+      一份沒有事實的範本，送出去比沒送更糟。
+    </p>
+    <div id="eventList" class="ev-list"></div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head"><h3>3・語氣與署名</h3></div>
+    <div class="inline-form">
+      <label>情境
+        <select id="modeSelect">
+          <option value="auto">自動判斷</option>
+          <option value="praise">報喜</option>
+          <option value="concern">需要家長一起協助</option>
+          <option value="routine">例行同步</option>
+        </select>
+      </label>
+      <label>你的署名 <input type="text" id="teacherName" maxlength="20" placeholder="陳老師"></label>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head"><h3>4・希望家長怎麼協助（你自己寫）</h3></div>
+    <p class="hint">
+      這一欄系統<strong>刻意不代寫</strong>。要請家長做什麼，跟這個家庭的狀況、這個孩子的個別情形綁在一起，
+      那是你的專業判斷；系統手上只有次數與日期，編出來的建議一定是罐頭，家長聽得出來。
+      留白也可以——草稿會留一個明顯的佔位符提醒你補上，不會偷偷送出去。
+      寫「一件具體的小事」比寫「多關心孩子」有用得多。
+    </p>
+    <div class="asks">
+      <label>第一件 <input type="text" id="ask1" maxlength="60" placeholder="今晚花五分鐘問問他這週最順利的一件事"></label>
+      <label>第二件（可留白）<input type="text" id="ask2" maxlength="60" placeholder=""></label>
+    </div>
+    <div class="inline-form">
+      <button id="genBtn" class="btn btn-primary" type="button">產生草稿</button>
+      <button id="polishBtn" class="btn btn-ghost" type="button">潤稿（可選）</button>
+    </div>
+  </section>
+
+  <section class="panel" id="draftBox" hidden>
+    <div class="panel-head"><h3>草稿</h3></div>
+    <div id="warnBox"></div>
+    <div id="draftBody"></div>
+    <p class="hint send-warn">
+      這兩份都只是草稿。送出前請自己讀過一遍，特別是：裡面有沒有一句話，
+      是在講「這個孩子是怎樣的人」而不是「發生了什麼事」。
+    </p>
+  </section>
+</main>
+
+<div id="toast" class="toast" hidden><span id="toastText"></span></div>
+
+<footer class="foot">
+  <p>報憂的草稿一定會有正向的段落，這不是粉飾。只講壞消息的聯絡會把家長推到防衛的位置，
+     接下來多半是孩子回家被罵一頓，而原本的問題一件也沒解決。
+     如果這段期間真的沒有正向紀錄可以引用，草稿不會替你編一句稱讚，會改成講你自己的立場。</p>
+</footer>
+
+<script type="module" src="js/contact.js"></script>
+</body>
+</html>
