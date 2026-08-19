@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>老師登入 — 班級積分堂</title>
+<meta name="description" content="用 Google 帳號登入班級積分堂，一位老師一份資料。">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/login.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="logo">✦</span>
+    <span class="brand-name">班級積分堂</span>
+  </div>
+</header>
+
+<main class="login-main">
+  <section class="login-card">
+    <h2>老師登入</h2>
+    <p class="hint">用 Google 帳號登入，你的班級、行為卡與紀錄只跟著你這個帳號走。</p>
+
+    <div id="loginState" class="login-state">
+      <p class="empty">檢查登入狀態中…</p>
+    </div>
+
+    <p class="login-note">
+      登入只用來認出你是哪位老師，不會讀取你的信件、雲端硬碟或聯絡人。
+    </p>
+  </section>
+</main>
+
+<footer class="foot">
+  <p><a href="/">← 回主畫面</a></p>
+</footer>
+
+<script type="module">
+import { isConfigured, fetchServerConfig, currentTeacher, startLogin, logout } from './js/auth.js';
+
+const root = document.getElementById('loginState');
+
+/* 從 callback 導回來時帶的失敗原因，翻成老師看得懂的話。 */
+const ERRORS = {
+  not_configured: '這個站台還沒設定好 Google 登入。',
+  denied: '你在 Google 那邊取消了授權。',
+  bad_state: '登入連結已過期，請再按一次登入。',
+  no_code: 'Google 沒有回傳授權碼，請再試一次。',
+  token_exchange_failed: '跟 Google 交換憑證失敗，請稍後再試。',
+  bad_token: 'Google 回傳的身分資料看不懂，請再試一次。',
+};
+
+function render(html) { root.innerHTML = html; }
+
+function showNotConfigured(missing) {
+  const detail = missing?.length ? `<p class="hint">後端還缺：${missing.join('、')}</p>` : '';
+  render(`
+    <div class="login-warn">
+      <p class="login-warn-title">尚未設定 Google 登入</p>
+      <p class="hint">這個站台還沒申請 Google OAuth Client，登入功能先關著。
+      現在資料仍存在這台裝置的瀏覽器裡，可以照常使用。</p>
+      ${detail}
+    </div>
+    <a class="btn btn-ghost" href="/">直接進主畫面</a>
+  `);
+}
+
+async function main() {
+  const err = new URLSearchParams(location.search).get('error');
+  const banner = err ? `<p class="login-err">${ERRORS[err] || '登入沒有完成，請再試一次。'}</p>` : '';
+
+  // Client ID 是空字串就不用往下問後端了，這是還沒申請的預設狀態。
+  if (!isConfigured()) { showNotConfigured(); return; }
+
+  const cfg = await fetchServerConfig();
+  if (cfg && cfg.configured === false) { showNotConfigured(cfg.missing); return; }
+
+  const teacher = await currentTeacher();
+  if (teacher) {
+    render(`
+      ${banner}
+      <p class="login-who">已登入：<strong>${teacher.email || teacher.teacherId}</strong></p>
+      <a class="btn btn-primary" href="/">進入班級積分堂</a>
+      <button id="logoutBtn" class="btn btn-ghost">登出</button>
+    `);
+    document.getElementById('logoutBtn').addEventListener('click', logout);
+    return;
+  }
+
+  render(`
+    ${banner}
+    <button id="loginBtn" class="btn btn-primary btn-google">使用 Google 帳號登入</button>
+  `);
+  document.getElementById('loginBtn').addEventListener('click', startLogin);
+}
+
+main();
+</script>
+</body>
+</html>
