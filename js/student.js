@@ -120,22 +120,6 @@ async function init() {
     await initGas();
     return;
   }
-  if (STORE_BACKEND !== 'cloud') {
-    document.querySelector('.tabs').hidden = true;
-    document.querySelector('.topbar-controls').hidden = true;
-    document.querySelector('main').innerHTML = `
-      <section class="availability-card" aria-labelledby="studentUnavailable">
-        <img src="assets/access-shield.svg" alt="" width="180" height="140">
-        <div>
-          <p class="eyebrow">學生資料保護</p>
-          <h2 id="studentUnavailable">學生端尚未開放</h2>
-          <p>目前網站使用單一教師裝置的本機儲存，個人代碼無法形成真正的資料權限邊界，因此不提供學生查分、排行或兌換。</p>
-          <p class="hint">等獨立的伺服器端身分驗證與資料投影完成後才會開放；現階段請由老師在課堂中提供個別回饋。</p>
-          <a class="btn btn-primary" href="/">回教師主畫面</a>
-        </div>
-      </section>`;
-    return;
-  }
   await store.init(SEED);
 
   /*
