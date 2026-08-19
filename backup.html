@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>備份與還原 — 班級積分堂</title>
+<meta name="description" content="把整學期的紀錄匯出成一個檔案，換裝置、換瀏覽器、清掉快取之後都能原樣匯回。">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/backup.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="logo">✦</span>
+    <span class="brand-name">備份與還原</span>
+  </div>
+</header>
+
+<div class="subpage-back"><a href="/">← 回主畫面</a></div>
+
+<main>
+  <div class="view-head">
+    <div>
+      <h2>備份與還原</h2>
+      <p class="hint">分數與紀錄存在你自己的 Google 試算表裡，換裝置不會不見。
+        但<strong>學生姓名只存在這台裝置的瀏覽器</strong>——換電腦、換瀏覽器、清掉瀏覽紀錄，
+        名字就對不回來了，畫面會只剩座號。要換裝置，就用這裡匯出的備份檔還原。</p>
+    </div>
+  </div>
+
+  <div id="pendingBox" class="bk-pending" hidden></div>
+
+  <!-- 匯出 -->
+  <section class="panel">
+    <div class="panel-head">
+      <h3>目前這台裝置上的資料</h3>
+    </div>
+    <div id="currentBox"></div>
+
+    <div class="bk-choices">
+      <div class="bk-choice bk-choice-plain">
+        <h4>含姓名的備份檔</h4>
+        <p class="bk-purpose">換裝置、清快取之後要還原，用這一種。</p>
+        <ul class="bk-facts">
+          <li><strong>有</strong>學生真實姓名、班級名稱、你寫的備註</li>
+          <li>可以匯回系統，原樣還原</li>
+          <li>檔名 <code>班級積分堂-備份-<strong>含姓名</strong>-20260815-1432.json</code></li>
+        </ul>
+        <button id="exportPlainBtn" class="btn btn-primary btn-sm" type="button">匯出含姓名的備份檔</button>
+      </div>
+
+      <div class="bk-choice bk-choice-deid">
+        <h4>去識別化的檔案</h4>
+        <p class="bk-purpose">要拿給別人看、要存查、要做期末統計，用這一種。</p>
+        <ul class="bk-facts">
+          <li><strong>沒有</strong>姓名、班級名稱、座位與備註；學生以座號代稱</li>
+          <li><strong>不能</strong>匯回系統，姓名還不回來——它不是備份</li>
+          <li>檔名 <code>班級積分堂-去識別-<strong>無姓名</strong>-20260815-1432.json</code></li>
+        </ul>
+        <button id="exportDeidBtn" class="btn btn-ghost btn-sm" type="button">匯出去識別化檔案</button>
+      </div>
+    </div>
+
+    <div id="exportConfirm" class="preview" hidden></div>
+
+    <p class="hint">兩種檔名差了好幾個字，三個月後在下載資料夾看到也分得出來，也不會互相覆蓋。
+      要留底、要還原，一律用「含姓名」那一份。</p>
+  </section>
+
+  <!-- 還原 -->
+  <section class="panel">
+    <div class="panel-head">
+      <h3>從備份檔還原</h3>
+    </div>
+    <p class="hint">選檔案，或直接把備份檔的內容貼進下面的框。<strong>檢查完會先讓你看到會發生什麼事</strong>，
+      確認之後才真的寫進去。只吃「含姓名」的備份檔——選到去識別化的檔案會被擋下來並告訴你原因。</p>
+
+    <div class="inline-form">
+      <label class="bk-file">選擇備份檔
+        <input type="file" id="fileInput" accept="application/json,.json">
+      </label>
+    </div>
+
+    <textarea id="pasteBox" class="import-box" rows="6" placeholder='或把備份檔內容貼在這裡，例如 {"exportedAt":"…","classes":[…]}'></textarea>
+    <div class="inline-form">
+      <button id="parseBtn" class="btn btn-primary btn-sm" type="button">檢查並預覽</button>
+      <button id="clearPaste" class="btn btn-ghost btn-sm" type="button">清空</button>
+    </div>
+
+    <fieldset class="bk-modes">
+      <legend>匯入方式</legend>
+      <label class="bk-mode">
+        <input type="radio" name="mode" value="merge" checked>
+        <span><strong>合併（建議）</strong>——備份檔的紀錄加進來，目前的資料一筆都不刪。
+          同一筆事件不會被記兩次，重複的會自動跳過。</span>
+      </label>
+      <label class="bk-mode">
+        <input type="radio" name="mode" value="replace">
+        <span><strong>覆蓋</strong>——先把這台裝置上的資料整份丟掉，再換成備份檔的內容。
+          只有在「這台的資料是錯的、要整個換掉」時才選。</span>
+      </label>
+    </fieldset>
+
+    <div id="preview" class="preview" hidden></div>
+  </section>
+</main>
+
+<div id="toast" class="toast" hidden><span id="toastText"></span></div>
+
+<footer class="foot">
+  <p>「含姓名」的匯出檔等同一份學生個資，請比照成績檔案保管：存在學校認可的位置、
+    不要放公開資料夾、不要用通訊軟體外傳、用畢刪除。「去識別化」的檔案沒有姓名，
+    但學生仍以座號呈現——手上有座位表的人認得出來，屬於班級資料，可以拿去討論，不要公開張貼。</p>
+</footer>
+
+<script type="module" src="js/backup.js"></script>
+</body>
+</html>
