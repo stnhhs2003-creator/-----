@@ -1,0 +1,92 @@
+/* 隱私說明頁。沿用 style.css 的變數與元件（.panel／.hint／.notice／table），
+   只補這一頁專屬的閱讀版面。 */
+
+.privacy-main { max-width: 720px; }
+
+/* ---- 開頭 ---- */
+
+.privacy-hero {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px 18px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+}
+
+.privacy-hero h2 { font-size: 1.375rem; line-height: 1.35; }
+.privacy-hero .hint { margin-top: 8px; }
+
+.privacy-updated {
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
+  letter-spacing: .06em;
+  margin-bottom: 2px;
+}
+
+/* ---- 內文 ---- */
+
+.privacy-main .panel p + p { margin-top: 10px; }
+
+.privacy-main .panel ul,
+.privacy-main .panel ol {
+  margin: 10px 0 0;
+  padding-left: 20px;
+  font-size: 0.875rem;
+  color: var(--ink);
+}
+
+.privacy-main .panel li { margin-bottom: 6px; }
+.privacy-main .panel li:last-child { margin-bottom: 0; }
+
+.privacy-main .panel strong { color: var(--green); }
+
+/* 表格在窄螢幕要能自己橫向捲，頁面本身不橫捲 */
+.privacy-table { overflow-x: auto; }
+.privacy-table table { min-width: 420px; }
+.privacy-table td { font-size: 0.875rem; }
+.privacy-table td:first-child { white-space: nowrap; font-weight: 600; }
+
+/* ---- 誰看得到什麼 ---- */
+
+.who-list { list-style: none; margin: 0; padding: 0; }
+
+.who {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.who:last-child { border-bottom: none; padding-bottom: 0; }
+.who:first-child { padding-top: 0; }
+
+.who-icon { font-size: 1.25rem; line-height: 1.4; }
+.who-body { flex: 1; }
+.who-role { font-weight: 700; font-size: 0.9375rem; }
+.who-can { font-size: 0.875rem; margin-top: 2px; }
+.who-cant { font-size: 0.8125rem; color: var(--ink-soft); margin-top: 4px; }
+
+/* ---- 提醒框 ---- */
+
+.privacy-warn {
+  background: var(--amber-soft);
+  border: 1px solid #efd6ad;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 0.875rem;
+  color: var(--amber);
+  margin-top: 12px;
+}
+
+.privacy-warn strong { color: var(--amber); }
+
+/* ---- 結尾 ---- */
+
+.privacy-note {
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
+  line-height: 1.8;
+  padding: 4px 2px 0;
+}
