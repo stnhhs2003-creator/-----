@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>行為卡設定 — 班級積分堂</title>
+<meta name="description" content="自訂班級積分堂的行為卡：名稱、圖示、分數與類型，可排序、可停用。改分數只影響之後的紀錄，過去的紀錄維持原樣。">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/behaviors.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="logo">✦</span>
+    <span class="brand-name">班級積分堂</span>
+  </div>
+  <div class="topbar-controls">
+    <button id="addBtn" class="btn btn-primary">新增行為卡</button>
+  </div>
+</header>
+
+<div class="subpage-back"><a href="/">← 回主畫面</a></div>
+
+<main>
+  <div class="view-head">
+    <div>
+      <h2>行為卡設定</h2>
+      <p class="hint">記錄面板上的卡片就是這裡的清單，順序也照這裡排。分數綁在卡片上，老師記錄時只能選卡、不能自由填數字。</p>
+    </div>
+    <div class="view-actions">
+      <button id="resetDefaultBtn" class="btn btn-ghost">重設為預設行為卡</button>
+    </div>
+  </div>
+
+  <div class="notice bx-notice">
+    改分數只影響<strong>之後</strong>的紀錄。每一筆事件在寫入當下就把分數存起來了，過去的紀錄維持原樣，稽核頁看到的歷史分數不會被追溯修改。
+  </div>
+
+  <!-- 編輯表單 -->
+  <section id="editor" class="panel bx-editor" hidden>
+    <div class="bx-editor-head">
+      <h3 id="editorTitle">新增行為卡</h3>
+      <button id="editorClose" class="btn btn-ghost btn-sm">取消</button>
+    </div>
+
+    <form id="behaviorForm" novalidate>
+      <div class="bx-fields">
+        <label class="bx-field">
+          <span class="bx-label">名稱</span>
+          <input id="fLabel" type="text" maxlength="12" placeholder="例如：主動發言" autocomplete="off">
+        </label>
+
+        <label class="bx-field bx-field-sm">
+          <span class="bx-label">圖示（可留空）</span>
+          <input id="fIcon" type="text" maxlength="4" placeholder="🙋" autocomplete="off">
+        </label>
+
+        <label class="bx-field bx-field-sm">
+          <span class="bx-label">分數</span>
+          <input id="fDelta" type="text" inputmode="numeric" placeholder="2" autocomplete="off">
+        </label>
+
+        <label class="bx-field bx-field-sm">
+          <span class="bx-label">類型</span>
+          <select id="fKind">
+            <option value="positive">正向</option>
+            <option value="improve">待改進</option>
+          </select>
+        </label>
+      </div>
+
+      <p class="bx-rule">正向卡分數必須大於 0，待改進卡必須小於 0，範圍是 -10 到 10 的整數。同一類型內名稱不可重複。</p>
+
+      <div id="formErrors" class="bx-errors" hidden></div>
+
+      <div class="bx-editor-actions">
+        <button type="submit" class="btn btn-primary">儲存</button>
+        <span class="bx-preview-wrap">
+          <span class="bx-preview-label">預覽</span>
+          <span id="preview" class="bcard positive bx-preview">
+            <span class="icon">⭐</span>
+            <span class="label">行為名稱</span>
+            <span class="delta">+2</span>
+          </span>
+        </span>
+      </div>
+    </form>
+  </section>
+
+  <section class="panel">
+    <h3>正向 <span id="countPositive" class="bx-count"></span></h3>
+    <div id="listPositive" class="bx-list"></div>
+  </section>
+
+  <section class="panel">
+    <h3>待改進 <span id="countImprove" class="bx-count"></span></h3>
+    <div id="listImprove" class="bx-list"></div>
+  </section>
+
+  <p class="hint">停用的卡片不會出現在記錄面板，但歷史紀錄仍然查得到它的名稱與當時的分數。除非確定用不到，否則建議停用而不是刪除。</p>
+</main>
+
+<div id="toast" class="toast" hidden>
+  <span id="toastText"></span>
+</div>
+
+<footer class="foot">
+  <p>資料存在你自己的 Google 試算表裡；學生姓名不上傳，只留在這台裝置的瀏覽器。</p>
+</footer>
+
+<script type="module" src="js/behaviors-editor.js"></script>
+</body>
+</html>
