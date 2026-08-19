@@ -17,7 +17,7 @@
  * 'gas' 是例外，因為那條線的姓名根本不出這台電腦（拆在 js/store-gas.js），
  * 上雲的只有座號與事件流——但換裝置前一定要先匯出備份，見 docs/gas-deploy.md。
  */
-export const STORE_BACKEND = 'local';
+export const STORE_BACKEND = 'gas';
 
 /**
  * 舊名，保留給 parent.js／bindings.js 用。語意不變：只有 Cloudflare 那條線算「雲端」，
