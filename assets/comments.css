@@ -1,0 +1,139 @@
+/* 學期評語草稿。沿用 style.css 的色票、.panel／.btn／.inline-form，只補這一頁多出來的東西。 */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.cmt {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 14px;
+}
+
+/* 資料不足的卡片刻意長得不一樣——老師掃一眼就知道哪幾個要自己寫 */
+.cmt.is-short {
+  background: var(--surface-2);
+  border-style: dashed;
+}
+
+.cmt-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.cmt-head h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.cmt-len {
+  font-size: .85rem;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.cmt.is-short .cmt-len {
+  color: var(--amber);
+  background: var(--amber-soft);
+  border-radius: 999px;
+  padding: 1px 10px;
+}
+
+.cmt-text {
+  width: 100%;
+  min-height: 8.5em;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font: inherit;
+  line-height: 1.85;
+  color: var(--ink);
+  background: #fff;
+  resize: vertical;
+}
+
+.cmt-text:focus {
+  outline: 2px solid var(--green);
+  outline-offset: 1px;
+}
+
+.cmt-notice {
+  margin: 8px 0 0;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--amber-soft);
+  color: var(--amber);
+  font-size: .9rem;
+}
+
+.cmt-acts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.cmt-facts {
+  margin-top: 10px;
+  font-size: .9rem;
+  color: var(--ink-soft);
+}
+
+.cmt-facts summary {
+  cursor: pointer;
+  user-select: none;
+}
+
+.cmt-facts ul {
+  margin: 8px 0 0;
+  padding-left: 1.2em;
+  line-height: 1.8;
+}
+
+.cmt-facts li {
+  /* 備註原文可能很長，讓它自然換行而不是撐破卡片 */
+  overflow-wrap: anywhere;
+}
+
+/* 手機：單欄，日期欄位不要被擠成兩個字寬 */
+@media (max-width: 560px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .inline-form label {
+    flex: 1 1 46%;
+  }
+
+  .inline-form input[type="date"] {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .cmt-acts .btn {
+    flex: 1 1 auto;
+  }
+}
+
+/*
+ * 被標籤濾網擋下的備註。刻意用琥珀色而不是紅色：
+ * 老師沒有做錯事——那是寫給自己看的速記，只是不該原樣交到家長手上。
+ */
+.cmt-warn {
+  margin: 6px 0 0;
+  padding: 8px 10px;
+  border-left: 3px solid #b8860b;
+  background: #fdf6e3;
+  border-radius: 0 8px 8px 0;
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  color: #6b5310;
+}
