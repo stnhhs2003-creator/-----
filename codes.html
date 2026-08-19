@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>個人代碼 — 班級積分堂</title>
+<meta name="description" content="發給每位學生的 4 位數個人代碼：學生端要打這組碼才看得到自己的成長與點數。可單獨重發、整班重發、整班列印。">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/codes.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="logo">✦</span>
+    <span class="brand-name">個人代碼</span>
+  </div>
+  <div class="topbar-controls">
+    <select id="classSelect" aria-label="選擇班級"></select>
+  </div>
+</header>
+
+<div class="subpage-back"><a href="/">← 回主畫面</a></div>
+
+<main>
+  <div class="view-head">
+    <div>
+      <h2>個人代碼</h2>
+      <p class="hint">
+        學生端本來只要拉一下下拉選單就能看到別人的分數。改成：選座號之後還要打自己的代碼。
+        擋的是「隔壁同學順手點開」，不是入侵——所以不會鎖帳號，打錯就再打一次。
+      </p>
+    </div>
+  </div>
+
+  <div id="codesRoot"></div>
+</main>
+
+<footer class="foot">
+  <p>代碼跟著班級名冊一起存，刪掉學生代碼就跟著消失。這一頁只有你（老師）會開，學生端不會有這個連結。</p>
+</footer>
+
+<script type="module" src="js/codes.js"></script>
+</body>
+</html>
