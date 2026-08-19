@@ -23,7 +23,6 @@ class CleanUrlHandler(http.server.SimpleHTTPRequestHandler):
         return super().do_GET()
 
 if __name__ == '__main__':
-    socketserver.TCPServer.allow_reuse_address = True
-    with socketserver.TCPServer(("", PORT), CleanUrlHandler) as httpd:
+    with http.server.ThreadingHTTPServer(("0.0.0.0", PORT), CleanUrlHandler) as httpd:
         print(f"Server running at http://localhost:{PORT}")
         httpd.serve_forever()
