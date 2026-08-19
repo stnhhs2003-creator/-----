@@ -1,0 +1,248 @@
+/*
+ * 備份與還原頁。
+ * .panel / .btn / .toast 沿用 style.css，這裡只補這一頁自己要的東西。
+ */
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.panel-head h3 { font-size: 0.9375rem; margin: 0; }
+
+
+.import-box {
+  font: inherit;
+  font-size: 0.8125rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  resize: vertical;
+  line-height: 1.7;
+}
+
+.import-box:focus { outline: 2px solid var(--green); outline-offset: 1px; }
+
+.preview {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  padding: 14px;
+  margin-top: 12px;
+}
+
+.preview h3 { font-size: 0.9375rem; margin-bottom: 8px; }
+.preview p { font-size: 0.875rem; margin-bottom: 8px; }
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.75rem;
+  background: var(--surface-2);
+  padding: 1px 5px;
+  border-radius: 6px;
+}
+
+/* 選檔按鈕：原生 file input 在手機上很小，包一層加大點擊範圍 */
+.bk-file {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ink-soft);
+  font-size: 0.875rem;
+}
+
+.bk-file input[type="file"] {
+  font: inherit;
+  font-size: 0.8125rem;
+  max-width: 100%;
+}
+
+/* 資料概況 */
+.bk-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 8px;
+}
+
+.bk-stat {
+  flex: 1 1 90px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 12px;
+  text-align: center;
+}
+
+.preview .bk-stat { background: var(--surface); }
+
+.bk-num { display: block; font-size: 1.25rem; font-weight: 700; color: var(--green); }
+.bk-lab { display: block; font-size: 0.75rem; color: var(--ink-soft); }
+
+/* 匯入前後對照 */
+.bk-diff {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin: 10px 0;
+  font-size: 0.875rem;
+}
+
+.bk-diff .bk-lab { font-size: 0.75rem; }
+.bk-arrow { color: var(--green); font-size: 1.125rem; font-weight: 700; }
+
+/* 匯入方式 */
+.bk-modes {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 10px 14px 14px;
+  margin: 14px 0 0;
+  background: var(--surface);
+}
+
+.bk-modes legend { font-size: 0.8125rem; color: var(--ink-soft); padding: 0 6px; }
+
+.bk-mode {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  padding: 8px 0;
+  cursor: pointer;
+}
+
+.bk-mode + .bk-mode { border-top: 1px dashed var(--line); }
+.bk-mode input { margin-top: 4px; flex: none; }
+
+/* 訊息 */
+.bk-msgs { margin: 8px 0; padding: 0; list-style: none; }
+
+.bk-msgs li {
+  font-size: 0.8125rem;
+  border-radius: 8px;
+  padding: 7px 10px;
+  margin-bottom: 6px;
+}
+
+.bk-err { color: var(--red); background: var(--red-soft); }
+.bk-warnline { color: var(--amber); background: var(--amber-soft); }
+.bk-bad { color: var(--red); }
+
+.bk-warn {
+  color: var(--amber);
+  background: var(--amber-soft);
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+/* 不可逆動作的最後一道閘門 */
+.bk-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.875rem;
+  margin: 12px 0;
+  cursor: pointer;
+}
+
+.bk-check input { margin-top: 4px; flex: none; }
+
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+
+/*
+ * 兩種匯出的選擇卡。
+ * 並排是為了讓「差別」被看見——兩張卡條列同樣三件事（有沒有姓名、能不能還原、檔名長怎樣），
+ * 老師是在比較，不是在讀說明。窄螢幕改成上下排，順序不變（含姓名在上，那是預設用途）。
+ */
+.bk-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 14px 0 4px;
+}
+
+.bk-choice {
+  flex: 1 1 260px;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 14px;
+}
+
+.bk-choice-plain { border-left: 4px solid var(--red); }
+.bk-choice-deid { border-left: 4px solid var(--green); }
+
+.bk-choice h4 { font-size: 0.9375rem; margin: 0 0 4px; }
+.bk-choice-plain h4::before { content: "🔒 "; }
+.bk-choice-deid h4::before { content: "🙈 "; }
+
+.bk-purpose { font-size: 0.8125rem; color: var(--ink-soft); margin-bottom: 8px; }
+
+.bk-facts {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px;
+  font-size: 0.8125rem;
+  line-height: 1.65;
+}
+
+.bk-facts li {
+  position: relative;
+  padding-left: 16px;
+  overflow-wrap: anywhere;
+}
+
+.bk-facts li::before {
+  content: "·";
+  position: absolute;
+  left: 4px;
+  color: var(--ink-soft);
+}
+
+.bk-choice .btn { width: 100%; }
+
+/*
+ * 「上一份含姓名檔還沒處理」的待辦。
+ * 它不是裝飾用的紅字：只有真的匯出過才會出現，而且要老師按掉才會消失。
+ */
+.bk-pending {
+  border: 1px solid var(--amber);
+  border-left: 4px solid var(--amber);
+  background: var(--amber-soft);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  margin-bottom: 14px;
+}
+
+.bk-pending p { font-size: 0.875rem; margin-bottom: 6px; }
+.bk-pending .hint { margin-bottom: 10px; }
+
+.bk-file-name {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.75rem;
+  overflow-wrap: anywhere;
+  color: var(--ink);
+}
+
+@media (max-width: 480px) {
+  .bk-stat { flex: 1 1 calc(50% - 8px); }
+  .bk-diff { font-size: 0.8125rem; }
+  .bk-choices { flex-direction: column; }
+  .bk-choice { flex: 1 1 auto; }
+}
