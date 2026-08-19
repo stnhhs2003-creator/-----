@@ -1,0 +1,131 @@
+/* 行為卡設定頁（第二期 2.4）專用樣式，沿用 style.css 的變數與元件。 */
+
+.bx-notice { margin-bottom: 18px; }
+.bx-notice strong { font-weight: 700; }
+
+.bx-count {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+  margin-left: 6px;
+}
+
+/* ---- 清單 ---- */
+
+.bx-list { display: grid; gap: 10px; }
+
+.bx-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: var(--surface);
+  flex-wrap: wrap;
+}
+
+.bx-row.is-archived { background: var(--surface-2); opacity: .72; }
+
+/* 清單裡的卡片就是記錄面板上那張卡，尺寸縮小但外觀一致 */
+.bx-card {
+  flex: 0 0 auto;
+  width: 84px;
+  min-height: 72px;
+  padding: 8px 4px;
+  cursor: default;
+}
+
+.bx-card .icon { font-size: 1.25rem; }
+.bx-card .label { font-size: 0.75rem; }
+
+.bx-row-main { flex: 1 1 140px; min-width: 0; }
+.bx-row-title { font-weight: 700; font-size: 0.9375rem; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.bx-row-meta { font-size: 0.8125rem; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+
+.bx-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 1px 8px;
+}
+
+.bx-row-actions { display: flex; gap: 6px; flex-wrap: wrap; margin-left: auto; }
+.bx-row-actions .btn[disabled] { opacity: .35; cursor: not-allowed; }
+.bx-danger { color: var(--red); }
+.bx-danger:hover { background: var(--red-soft); }
+
+/* ---- 編輯表單 ---- */
+
+.bx-editor { border-color: var(--green); }
+
+.bx-editor-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.bx-fields { display: flex; gap: 12px; flex-wrap: wrap; }
+.bx-field { display: flex; flex-direction: column; gap: 4px; flex: 1 1 200px; }
+.bx-field-sm { flex: 0 1 130px; }
+.bx-label { font-size: 0.8125rem; color: var(--ink-soft); }
+
+.bx-field input,
+.bx-field select {
+  font: inherit;
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--ink);
+  min-height: 40px;
+  width: 100%;
+}
+
+.bx-field input:focus,
+.bx-field select:focus { outline: 2px solid var(--green); outline-offset: 1px; }
+
+.bx-rule { font-size: 0.75rem; color: var(--ink-soft); margin-top: 10px; }
+
+.bx-errors {
+  margin-top: 12px;
+  border: 1px solid var(--red);
+  background: var(--red-soft);
+  color: var(--red);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 0.8125rem;
+}
+
+.bx-errors ul { margin: 0; padding-left: 18px; }
+
+.bx-editor-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.bx-preview-wrap { display: flex; align-items: center; gap: 8px; }
+.bx-preview-label { font-size: 0.75rem; color: var(--ink-soft); }
+.bx-preview { width: 92px; min-height: 76px; padding: 8px 4px; cursor: default; }
+
+/* ---- 手機 ---- */
+
+@media (max-width: 560px) {
+  .bx-row { gap: 10px; padding: 10px; }
+  .bx-card { width: 68px; min-height: 64px; }
+  .bx-card .icon { font-size: 1.0625rem; }
+  .bx-card .label { font-size: 0.75rem; }
+  .bx-row-main { flex: 1 1 100px; }
+  .bx-row-actions { margin-left: 0; width: 100%; }
+  .bx-row-actions .btn { flex: 1 1 auto; }
+  .bx-field, .bx-field-sm { flex: 1 1 100%; }
+  .bx-editor-actions { align-items: flex-start; }
+}
