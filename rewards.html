@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>積分商店 — 班級積分堂</title>
+<meta name="description" content="老師端管理獎勵品項與核可學生的兌換申請。核可後會產生一筆扣點事件，稽核頁查得到。">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/student.css">
+</head>
+<body>
+
+<div class="subpage-back"><a href="/">← 回主畫面</a></div>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="logo">✦</span>
+    <span class="brand-name">積分商店（老師端）</span>
+  </div>
+  <div class="topbar-controls">
+    <a class="btn btn-ghost btn-sm" href="/student">看學生端</a>
+  </div>
+</header>
+
+<main>
+  <section class="view is-active">
+
+    <div class="view-head">
+      <div>
+        <h2>待核可的兌換申請</h2>
+        <p class="hint">核可＝作廢申請＋寫一筆扣點事件。退回只作廢申請，不扣分。兩種都留在稽核軌跡裡。</p>
+      </div>
+    </div>
+    <div id="pendingTable" class="logtable"></div>
+
+    <div class="view-head stu-gap">
+      <div>
+        <h2>獎勵品項</h2>
+        <p class="hint">庫存留空代表不限量。庫存扣到 0 會自動下架。</p>
+      </div>
+      <div class="view-actions">
+        <button id="addBtn" class="btn btn-primary">新增品項</button>
+      </div>
+    </div>
+
+    <form id="rewardForm" class="panel stu-form" hidden>
+      <h3 id="formTitle">新增品項</h3>
+      <div class="stu-form-grid">
+        <label>名稱
+          <input id="fName" type="text" maxlength="30" required placeholder="例如：免作業券">
+        </label>
+        <label>所需點數
+          <input id="fCost" type="number" min="1" step="1" required value="20">
+        </label>
+        <label>庫存（留空＝不限）
+          <input id="fStock" type="number" min="0" step="1" placeholder="不限">
+        </label>
+        <label class="check stu-check">
+          <input id="fActive" type="checkbox" checked> 上架中
+        </label>
+      </div>
+      <div class="view-actions">
+        <button type="submit" class="btn btn-primary">儲存</button>
+        <button type="button" id="cancelBtn" class="btn btn-ghost">取消</button>
+      </div>
+    </form>
+
+    <div id="rewardTable" class="logtable"></div>
+  </section>
+</main>
+
+<div id="toast" class="toast" hidden>
+  <span id="toastText"></span>
+</div>
+
+<footer class="foot">
+  <p>兌換不新增任何儲存結構，全部走既有事件流：申請是 redeem-request、核可才產生 redeem 的扣點事件。</p>
+</footer>
+
+<script type="module" src="js/rewards.js"></script>
+</body>
+</html>
