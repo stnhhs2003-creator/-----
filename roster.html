@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>班級名冊 — 班級積分堂</title>
+<meta name="description" content="新增班級、貼上 Excel 兩欄直接匯入座號姓名、自動排座位。資料留在你自己的裝置。">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/roster.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="logo">✦</span>
+    <span class="brand-name">班級積分堂</span>
+  </div>
+  <div class="topbar-controls">
+    <select id="classSelect" aria-label="選擇班級"></select>
+  </div>
+</header>
+
+<div class="subpage-back"><a href="/">← 回主畫面</a></div>
+
+<main>
+  <div class="view-head">
+    <div>
+      <h2>班級名冊</h2>
+      <p class="hint">新增班級、貼上 Excel 兩欄匯入名單、調整座位。改完回主畫面，座位表就是新的。</p>
+    </div>
+  </div>
+
+  <!-- 班級 -->
+  <section class="panel">
+    <div class="panel-head">
+      <h3>班級</h3>
+      <button id="addClass" class="btn btn-primary btn-sm">新增班級</button>
+    </div>
+    <div class="logtable">
+      <table>
+        <thead>
+          <tr><th>班級</th><th class="num">人數</th><th>每列座位數</th><th class="col-act">操作</th></tr>
+        </thead>
+        <tbody id="classRows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 名冊 -->
+  <section class="panel">
+    <div class="panel-head">
+      <h3 id="rosterTitle">學生名冊</h3>
+      <span class="hint" id="rosterCount"></span>
+    </div>
+
+    <form id="addStudentForm" class="inline-form">
+      <label>座號 <input type="number" id="newNo" min="1" max="99" inputmode="numeric" required></label>
+      <label>姓名 <input type="text" id="newName" maxlength="20" required></label>
+      <button class="btn btn-primary btn-sm" type="submit">新增學生</button>
+    </form>
+
+    <div class="logtable">
+      <table>
+        <thead>
+          <tr><th class="num">座號</th><th>姓名</th><th class="pos-h">位置</th><th class="col-act">操作</th></tr>
+        </thead>
+        <tbody id="studentRows"></tbody>
+      </table>
+    </div>
+
+    <p class="optout-note">
+      <strong>不參與記錄</strong>：家長可以選擇讓孩子的行為不進這個系統。
+      設定之後，這位同學的座位照樣留在座位表上（位子不會不見，才不會點錯人），
+      但那一格不顯示姓名與分數、也點不下去；班級榜、家長端、學生端、學期評語、
+      親師草稿、導師週報與匯出檔都不會再出現他。家長改變主意時可以隨時恢復。
+    </p>
+  </section>
+
+  <!-- 批次匯入 -->
+  <section class="panel">
+    <div class="panel-head">
+      <h3>批次匯入</h3>
+    </div>
+    <p class="hint">直接從 Excel 選兩欄（座號、姓名）複製貼上。逗號分隔、只有姓名一欄也可以——只有姓名時座號會從 1 自動遞增。</p>
+    <textarea id="importText" class="import-box" rows="8" placeholder="1	王小明&#10;2	陳小美&#10;3	林大同"></textarea>
+    <div class="inline-form">
+      <label>匯入方式
+        <select id="importMode">
+          <option value="replace">取代整份名冊</option>
+          <option value="append">附加在名冊後面</option>
+        </select>
+      </label>
+      <button id="parseBtn" class="btn btn-primary btn-sm" type="button">解析並預覽</button>
+      <button id="clearImport" class="btn btn-ghost btn-sm" type="button">清空</button>
+    </div>
+    <div id="importPreview" class="preview" hidden></div>
+  </section>
+
+  <!-- 座位配置 -->
+  <section class="panel">
+    <div class="panel-head">
+      <h3>座位配置</h3>
+      <button id="reflow" class="btn btn-ghost btn-sm" type="button">依座號重新排列</button>
+    </div>
+    <p class="hint">預設依座號由左至右、由前至後排。要對調兩個人的位子，選兩位學生按互換。</p>
+    <div class="inline-form">
+      <label>學生 A <select id="swapA"></select></label>
+      <label>學生 B <select id="swapB"></select></label>
+      <button id="swapBtn" class="btn btn-primary btn-sm" type="button">互換座位</button>
+    </div>
+    <div class="board">講台</div>
+    <div id="seatPreview" class="seating seat-preview"></div>
+  </section>
+
+  <!-- 資料保存 -->
+  <section class="panel">
+    <div class="panel-head">
+      <h3>資料保存與刪除</h3>
+    </div>
+    <p class="hint">
+      個資法要求「特定目的消失時應主動刪除」。班級經營的目的隨學年結束而消失，
+      所以超過保存期限沒有新紀錄的班級，這裡會主動提醒你該清掉了。
+    </p>
+    <div class="inline-form">
+      <label>保存期限
+        <select id="retention">
+          <option value="6">6 個月</option>
+          <option value="12">12 個月（一學年）</option>
+          <option value="24">24 個月</option>
+          <option value="36">36 個月（國中三年）</option>
+        </select>
+      </label>
+      <span class="hint" id="retentionHint"></span>
+    </div>
+    <div id="expiredList"></div>
+  </section>
+</main>
+
+<!-- 移除學生：兩種完全不同的處置，不能靠一個確認框問完 -->
+<div id="delDialog" class="sheet" hidden>
+  <div class="sheet-backdrop" data-close></div>
+  <div class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="delTitle">
+    <div class="sheet-head">
+      <h3 id="delTitle">移除學生</h3>
+      <button class="btn btn-ghost btn-sm" data-close>關閉</button>
+    </div>
+    <p id="delBody" class="hint"></p>
+    <div class="del-choices">
+      <button id="delKeep" class="btn btn-ghost" type="button">
+        只移出名冊
+        <span class="opt-sub">紀錄留著。學期中換班、暫時不在座位表上時用。</span>
+      </button>
+      <button id="delPurge" class="btn btn-danger" type="button">
+        連同紀錄永久刪除
+        <span class="opt-sub">畢業、轉學時用。刪掉就找不回來了，匯出檔裡也不會再有。</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!--
+  不參與記錄：這是家長行使個資權利，不是對學生的處分。
+  這個對話框刻意跟「移除學生」那個分開——移除是老師的班務決定，
+  不參與是家長的決定，兩件事混在同一顆按鈕底下遲早會按錯。
+-->
+<div id="optOutDialog" class="sheet" hidden>
+  <div class="sheet-backdrop" data-oc></div>
+  <div class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="optOutTitle">
+    <div class="sheet-head">
+      <h3 id="optOutTitle">設為不參與記錄</h3>
+      <button class="btn btn-ghost btn-sm" data-oc>關閉</button>
+    </div>
+    <p id="optOutBody" class="hint"></p>
+    <div class="optout-choices">
+      <button id="optOutConfirm" class="btn btn-primary" type="button">
+        設為不參與記錄
+        <span class="opt-sub">座位留著，之後不會再有任何紀錄寫進來。</span>
+      </button>
+      <button class="btn btn-ghost" type="button" data-oc>
+        先不要
+        <span class="opt-sub">建議先到<a href="/backup">備份</a>匯出一份留底再設定。</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast" hidden><span id="toastText"></span></div>
+
+<footer class="foot">
+  <p>「只移出名冊」不會刪掉歷史事件——它們是稽核軌跡，仍會留在匯出的 JSON 裡。
+     學生畢業或轉學時，請用「連同紀錄永久刪除」。</p>
+</footer>
+
+<script type="module" src="js/roster.js"></script>
+</body>
+</html>
