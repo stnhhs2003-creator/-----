@@ -1,0 +1,91 @@
+/* 家長綁定後台。沿用 style.css 的色票與 .panel／.btn，只補這一頁多出來的東西。 */
+
+.codebox,
+.linkbox {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.codebox input,
+.linkbox input {
+  flex: 1 1 220px;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font: inherit;
+  background: #fff;
+}
+
+.codebox input {
+  /* 通過碼是要念給家長聽、要在群組裡貼的東西，字大一點比較不會抄錯。 */
+  font-size: 1.25rem;
+  letter-spacing: 0.12em;
+  max-width: 220px;
+  flex: 0 0 auto;
+}
+
+.notice {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: #f4f1e8;
+  color: #6b5f43;
+  line-height: 1.7;
+}
+
+.tbl {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tbl th,
+.tbl td {
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.tbl th {
+  font-weight: 600;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.tbl .acts {
+  white-space: nowrap;
+  text-align: right;
+}
+
+.count {
+  display: inline-block;
+  min-width: 1.6em;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--accent, #2f7d5d);
+  color: #fff;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.b-pending { background: #fdf2d8; color: #8a6a1f; }
+.b-approved { background: #e3f1e8; color: #2f6a4c; }
+.b-rejected { background: #f1e6e6; color: #8a4a4a; }
+.b-revoked { background: #ece9e4; color: #6b6357; }
+
+@media (max-width: 560px) {
+  .tbl th:nth-child(3),
+  .tbl td:nth-child(3) { display: none; }
+  .tbl .acts { text-align: left; }
+}
