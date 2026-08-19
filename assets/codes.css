@@ -1,0 +1,109 @@
+/*
+ * 個人代碼後台。沿用 style.css 的色票與 .panel／.btn，這裡只補這一頁多出來的東西。
+ * 學生端的代碼輸入框樣式也放在這裡（student.html 會一起載），
+ * 免得同一組視覺分散在兩個檔案裡對不起來。
+ */
+
+.codes-acts {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 12px 0;
+}
+
+.code-cell { white-space: nowrap; }
+
+.code {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  font-variant-numeric: tabular-nums;
+}
+
+.code.masked {
+  color: var(--muted);
+  letter-spacing: 0.16em;
+}
+
+.notice {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: #f4f1e8;
+  color: #6b5f43;
+  line-height: 1.7;
+}
+
+/* ---- 學生端的代碼閘門 ---- */
+
+.gate {
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.gate h3 { margin: 0 0 6px; }
+
+.gate-form {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  margin-top: 12px;
+}
+
+.gate-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.gate-form select,
+.gate-form input {
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font: inherit;
+  background: #fff;
+  min-width: 0;
+}
+
+.gate-form input.gate-code {
+  font-size: 1.3rem;
+  letter-spacing: 0.22em;
+  width: 7.5em;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.gate-err {
+  margin: 10px 0 0;
+  color: var(--amber, #a06000);
+  font-weight: 600;
+}
+
+.gate-who {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: var(--green-soft, #eef6ef);
+}
+
+.gate-who .who-name { font-weight: 700; }
+
+/* 手機是主要使用情境：390px 寬要能一眼看完，不能橫向捲。 */
+@media (max-width: 430px) {
+  .codes-acts .btn { flex: 1 1 100%; }
+  .gate-form { flex-direction: column; align-items: stretch; }
+  .gate-form label { width: 100%; }
+  .gate-form select,
+  .gate-form input.gate-code { width: 100%; }
+  .gate-form .btn { width: 100%; }
+}
