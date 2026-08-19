@@ -1,0 +1,183 @@
+/*
+ * 導師手札週報。沿用 style.css 的色票與 .panel／.btn，只補這一頁多出來的東西。
+ * 兩個特別的考量：
+ *   1. 老師常常在手機上翻（390px），所以週次切換與按鈕列都要能換行。
+ *   2. 老師會列印或存 PDF 貼進手札，所以 @media print 要把操作元件全部藏掉。
+ */
+
+/* ---- 週次切換 ---- */
+
+.wk-nav { display: grid; gap: 10px; }
+
+.wk-nav-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.wk-label {
+  font-weight: 700;
+  font-size: 0.9375rem;
+  font-variant-numeric: tabular-nums;
+  flex: 1 1 auto;
+  text-align: center;
+  min-width: 0;
+}
+
+.wk-jump {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
+  flex-wrap: wrap;
+}
+
+.wk-jump input {
+  font: inherit;
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--ink);
+  min-height: 34px;
+}
+
+/* ---- 操作列 ---- */
+
+.wk-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 14px 0 6px;
+}
+
+/* ---- 報告本體 ---- */
+
+.wk-paper {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px 18px 24px;
+  margin-top: 10px;
+}
+
+.wk-title { font-size: 1.1875rem; }
+
+.wk-range {
+  color: var(--ink-soft);
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+  margin-top: 2px;
+}
+
+/* 讀者分界的視覺提醒。這一頁可以有負向明細，家長端與學生端永遠不行。 */
+.wk-private {
+  margin-top: 12px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: var(--amber-soft);
+  color: var(--amber);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+
+.wk-sec { margin-top: 22px; }
+
+.wk-sec h3 {
+  font-size: 0.9375rem;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--green-soft);
+}
+
+.wk-sec .hint { margin-top: 6px; }
+
+.wk-list {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+}
+
+.wk-list > li { margin-top: 10px; }
+
+.wk-item {
+  display: block;
+  font-weight: 600;
+  line-height: 1.7;
+}
+
+/* 需關心名單的「為什麼上榜 + 具體事件」。縮排但不要縮到手機上擠成一團。 */
+.wk-sub {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 8px 12px;
+  border-left: 3px solid var(--green-soft);
+  background: var(--surface-2);
+  border-radius: 0 8px 8px 0;
+}
+
+.wk-sub li {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--ink-soft);
+  line-height: 1.75;
+  white-space: pre-wrap;
+}
+
+/* ---- 純文字版 ---- */
+
+.wk-plain {
+  width: 100%;
+  margin-top: 14px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: ui-monospace, SFMono-Regular, Menlo, "PingFang TC", monospace;
+  font-size: 0.8125rem;
+  line-height: 1.8;
+  resize: vertical;
+}
+
+/* ---- 手機 ---- */
+
+@media (max-width: 560px) {
+  .wk-paper { padding: 16px 12px 20px; }
+  .wk-title { font-size: 1.0625rem; }
+  .wk-label { flex-basis: 100%; order: -1; }
+  .wk-jump { flex: 1 1 100%; }
+  .wk-jump input { flex: 1 1 auto; min-width: 0; }
+  .wk-actions .btn { flex: 1 1 calc(50% - 4px); }
+  .wk-sub { padding: 8px 10px; }
+}
+
+/* ---- 列印：老師會印出來貼進手札 ---- */
+
+@media print {
+  .topbar,
+  .subpage-back,
+  .view-head,
+  .wk-nav,
+  .wk-actions,
+  .wk-plain,
+  .toast,
+  .foot,
+  #aiNote { display: none !important; }
+
+  main { padding: 0; max-width: none; }
+  body { background: #fff; }
+
+  .wk-paper {
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* 一位需關心的學生不要被切到兩頁 */
+  .wk-sec,
+  .wk-list > li { break-inside: avoid; }
+}
