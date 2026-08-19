@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>家長綁定 — 班級積分堂</title>
+<meta name="description" content="老師端後台：設定家長通過碼、產生家長連結、逐筆核可家長的查看申請。">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/bindings.css">
+</head>
+<body>
+
+<div class="subpage-back"><a href="/">← 回主畫面</a></div>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="logo">✦</span>
+    <span class="brand-name">家長綁定（老師端）</span>
+  </div>
+  <div class="topbar-controls">
+    <a class="btn btn-ghost btn-sm" href="/parent">看家長端</a>
+  </div>
+</header>
+
+<main>
+  <div class="view-head">
+    <h2>誰看得到我的班，由我決定</h2>
+    <p class="hint">
+      家長要看到孩子的成長紀錄，得過三關：用 Google 登入、輸入你發的通過碼、
+      <strong>而且由你在這一頁按下核可</strong>。通過碼被轉傳出去，頂多讓你這裡多幾筆待核可的申請。
+    </p>
+  </div>
+
+  <div id="bindRoot"></div>
+</main>
+
+<script type="module" src="js/bindings.js?v=20260815"></script>
+</body>
+</html>
