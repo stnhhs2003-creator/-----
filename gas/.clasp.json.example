@@ -1,0 +1,32 @@
+{
+  "//": "===================================================================",
+  "//1": "班級積分堂 · clasp 專案設定範本（S4）",
+  "//2": "",
+  "//3": "這一份是範本，clasp 不會讀它。實際使用時複製兩份出來：",
+  "//4": "  cp gas/.clasp.json.example gas/.clasp.admin.json",
+  "//5": "  cp gas/.clasp.json.example gas/.clasp.public.json",
+  "//6": "分別填入兩個 Apps Script 專案的 scriptId，並把 rootDir 改成",
+  "//7": "  admin  -> build/admin",
+  "//8": "  public -> build/public",
+  "//9": "",
+  "//10": "⚠️ .clasp.admin.json / .clasp.public.json 兩份實檔絕對不能進 git：",
+  "//11": "   scriptId 等同於「這份試算表的後端在哪裡」的座標。它不是密碼，",
+  "//12": "   但配合公開的 /exec 網址就是攻擊面的第一塊拼圖，沒有理由公開。",
+  "//13": "   （clasp 的登入憑證另外存在 ~/.clasprc.json，那一份更不能外流。）",
+  "//14": "   → 詳細用法見 docs/gas-deploy.md，指令速查見 gas/README.md",
+  "//15": "===================================================================",
+
+  "//scriptId": "必填。Apps Script 專案 id。取得方式：打開該專案 → 左側『專案設定』（齒輪）→『ID』區塊的『指令碼 ID』。也會出現在編輯器網址 https://script.google.com/d/<這一段>/edit 裡。長度約 57 個字元。",
+  "scriptId": "貼上你的指令碼 ID",
+
+  "//rootDir": "選填，預設是 .clasp.json 所在的目錄。clasp push 只會上傳這個目錄底下的檔案。⚠️ 路徑是相對於這個 .clasp.json 檔案的位置，不是相對於你執行指令時的 cwd（已在本機實測）。本專案用組版目錄：管理端填 build/admin，公開端填 build/public。",
+  "rootDir": "build/admin",
+
+  "//projectId": "選填。關聯的 GCP 專案 id。只有要用 clasp run-function、或要自己管 OAuth 憑證時才需要。本專案兩份部署都不需要，留著不填即可（clasp 需要時會自己問）。",
+
+  "//scriptExtensions": "選填。哪些副檔名算是程式碼檔，預設 [\".js\", \".gs\"]。本專案用 .gs，走預設就好，不用寫。",
+
+  "//filePushOrder": "選填。要優先上傳的檔案清單。Apps Script 同專案的 .gs 共用同一個全域，載入順序只影響『頂層立即執行的程式碼』；本專案全部是函式宣告與 var 常數，沒有順序需求，不用設。注意這裡的路徑要含 rootDir。",
+
+  "//skipSubdirectories": "選填，預設 false。設 true 會忽略子目錄。本專案組版目錄是扁的，不用設。"
+}
